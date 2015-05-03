@@ -31,18 +31,6 @@ public class Household {
         return average;
     }
 
-    public int determineHighDay() {
-        int highDay = 0;
-        int amount = 0;
-        for (int i = 0; i < arrWaterUse.length; i++) {
-            if (arrWaterUse[i] > amount) {
-                amount = arrWaterUse[i];
-                highDay = i;
-            }
-        }
-        return highDay;
-    }
-
     public int calculateDaysAboveLimit(double dailyLimit) {
         int days = 0;
         for (int i = 0; i < arrWaterUse.length; i++) {
@@ -77,16 +65,15 @@ public class Household {
         
          The two columns are : Days & Excess Amount
         
-        To ensure that there are no "null"/"NaN" values and that the two-dimensional array is "optimized", i.e. no empty values, two counters 
-        i & j have to be used to loop/increment between the two-dimensional array and the one-dimensional array - "arrWaterUse", which is the array
-        from which information is being read from, manipulated and then parsed into the two-dimensional array.
+         To ensure that there are no "null"/"NaN" values and that the two-dimensional array is "optimized", i.e. no empty values, two counters 
+         i & j have to be used to loop/increment between the two-dimensional array and the one-dimensional array - "arrWaterUse", which is the array
+         from which information is being read from, manipulated and then parsed into the two-dimensional array.
         
-        Since the one-dimensional array - "arrWaterUse" and the
-        two-dimensional array - "arrExcess" have different lengths, two different counters are used to loop/increment for each array/in terms of each array.
-        Therefore "i" is used to increment in terms of the one-dimensional array - "arrWaterUse"
-        & "j" is used to increment in terms of the two-dimensional array - "arrExcess".
+         Since the one-dimensional array - "arrWaterUse" and the
+         two-dimensional array - "arrExcess" have different lengths, two different counters are used to loop/increment for each array/in terms of each array.
+         Therefore "i" is used to increment in terms of the one-dimensional array - "arrWaterUse"
+         & "j" is used to increment in terms of the two-dimensional array - "arrExcess".
          */
-        
         int j = 0; // This is the counter that will increment in terms of the two-dimensional array. 
         for (int i = 0; i < arrWaterUse.length; i++) {
             if (arrWaterUse[i] > average) {
@@ -94,7 +81,6 @@ public class Household {
 
                 /* Days - The "i", is being used as it is the counter that is being incremented in terms of the one-dimensional array - arrWaterUse. 
                  It keeps track of the number of the day in the week. This is why the "j" variable is not used here. */
-                
                 arrExcess[j][1] = arrWaterUse[i] - average; // Calculating amount in excess
                 j++;
             }
@@ -118,6 +104,18 @@ public class Household {
         }
         return flag;
 
+    }
+
+    public int determineHighestDay() {
+        int highDay = 0;
+        int highestUsage = 0;
+        for (int i = 0; i < arrWaterUse.length; i++) {
+            if (arrWaterUse[i] > highestUsage) {
+                highestUsage = arrWaterUse[i];
+                highDay = i + 1;
+            }
+        }
+        return highDay;
     }
 
     public String intArraytoString() {
